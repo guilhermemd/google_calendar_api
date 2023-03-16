@@ -25,14 +25,14 @@ app.get("/google", (req, res) => {
     access_type: "offline",
     scope: scopes,
   });
-  // console.log("acess_toke", oauth2Client.credentials);
   res.redirect(url);
 });
 
-app.get("/google/redirect", (req, res) => {
+app.get("/google/redirect", async (req, res) => {
   const code = req.query.code;
-  // console.log("Respostaaaaa", res);
-  const { tokens } = oauth2Client.getToken(code);
+  // console.log("Respostaaaaa", req.query.code);
+  // console.log("tokens", await oauth2Client.getToken(code));
+  const { tokens } = await oauth2Client.getToken(code);
 
   oauth2Client.setCredentials(tokens);
 
